@@ -12,7 +12,7 @@ namespace OnlineEdu.DataAccess.Repositories
 {
     public class GenericRepository<T>(OnlineEduContext _context) : IRepository<T> where T : class
     {
-        public DbSet<T> Table  { get => _context.Set<T>(); }
+        public DbSet<T> Table { get => _context.Set<T>(); }
 
         public int Count()
         {
@@ -21,19 +21,15 @@ namespace OnlineEdu.DataAccess.Repositories
 
         public void Create(T entity)
         {
-           Table.Add(entity);
+            Table.Add(entity);
             _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var entity = Table.Find(id);
-            if (entity != null)
-            {
-                Table.Remove(entity);
-                _context.SaveChanges();
-            }
-
+            Table.Remove(entity);
+            _context.SaveChanges();
         }
 
         public int FilteredCount(Expression<Func<T, bool>> predicate)

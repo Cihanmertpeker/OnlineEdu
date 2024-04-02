@@ -27,7 +27,7 @@ namespace OnlineEdu.API.Controllers
             return Ok(value);
         }
 
-        [HttpDelete]
+        [HttpGet("{id}")]
         public IActionResult Delete(int id)
         {
             _blogCategoryService.TDelete(id);

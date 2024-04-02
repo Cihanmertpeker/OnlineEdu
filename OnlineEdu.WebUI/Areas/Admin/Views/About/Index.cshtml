@@ -32,8 +32,9 @@
             <td>@item.item3</td>
             <td>@item.item4</td>
             <td>
-                <a asp-action="UpdateAbout" asp-controller="About" asp-area="Admin" class="btn btn-outline-info">Güncelle</a>
-                <a asp-action="UpdateAbout" asp-controller="About" asp-area="Admin" class="btn btn-outline-danger">Sil</a>
+                <a asp-action="UpdateAbout" asp-route-id="@item.AboutID" asp-controller="About" asp-area="Admin"  class="btn btn-outline-info">Güncelle</a>
+
+                <a asp-action="DeleteAbout" asp-controller="About" asp-area="Admin" asp-route-id="@item.AboutID" class="btn btn-outline-danger">Sil</a>
             </td>
            
         </tr>
