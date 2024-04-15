@@ -26,7 +26,7 @@ namespace OnlineEdu.API.Controllers
             return Ok(value);
         }
 
-        [HttpGet("{id}")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _bannerService.TDelete(id);
