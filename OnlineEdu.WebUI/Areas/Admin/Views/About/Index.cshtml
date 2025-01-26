@@ -1,0 +1,43 @@
+﻿@model List<ResultAboutDto>
+
+@{
+    Layout="~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Hakkımda Sayfası";
+}
+@{
+    int count = 0;
+}
+
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>Resim1</th>
+        <th>Resim2</th>
+        <th>Açıklama</th>
+        <th>Madde1</th>
+        <th>Madde2</th>
+        <th>Madde3</th>
+        <th>Madde4</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <th><img src="@item.ImageUrl1" style="height:75px;width:75px"/></th>
+            <th><img src="@item.ImageUrl2" style="height:75px;width:75px"/></th>
+            <th>@item.Description</th>
+            <th>@item.Item1</th>
+            <th>@item.Item2</th>
+            <th>@item.Item3</th>
+            <th>@item.Item4</th>
+            <td>
+                <a asp-action="UpdateAbout" asp-controller="About" asp-area="Admin" class="btn btn-outline-info">Güncelle</a>
+                <a asp-action="DeleteAbout" asp-controller="About" asp-area="Admin" class="btn btn-outline-danger">Sil</a>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+<a asp-action="CreateAbout" asp-controller="About" asp-area="Admin" class="btn btn-outline-primary">Yeni Hakkımda Ekle</a>
