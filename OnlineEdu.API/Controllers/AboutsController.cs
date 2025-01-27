@@ -17,8 +17,8 @@ namespace OnlineEdu.API.Controllers
             var values = _aboutService.TGetList();
             return Ok(values);
         }
-        [HttpGet("{id}")]
 
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var value = _aboutService.TGetById(id);
