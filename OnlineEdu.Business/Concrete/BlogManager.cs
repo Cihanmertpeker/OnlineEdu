@@ -17,10 +17,29 @@ namespace OnlineEdu.Business.Concrete
             _blogRepository = blogRepository;
         }
 
+        //public Blog TGetBlogWithCategory(int id)
+        //{
+        //    return _blogRepository.GetBlogWithCategory(id);
+        //}
+
         public List<Blog> TGetBlogsWithCategories()
         {
             return _blogRepository.GetBlogsWithCategories();
         }
 
+        public List<Blog> TGetBlogsWithCategoriesByWriterId(int id)
+        {
+            return _blogRepository.GetBlogsWithCategoriesByWriterId(id);
+        }
+
+        public List<Blog> TGetLast4BlogsWithCategories()
+        {
+            return _blogRepository.GetLast4BlogsWithCategories();
+        }
+
+        public List<Blog> TGetBlogsByCategoryId(int id)
+        {
+            return _blogRepository.GetBlogsByCategoryId(id);
+        }
     }
 }
