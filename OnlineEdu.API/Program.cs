@@ -6,6 +6,7 @@ using OnlineEdu.DataAccess.Abstract;
 using OnlineEdu.DataAccess.Concrete;
 using OnlineEdu.DataAccess.Context;
 using OnlineEdu.DataAccess.Repositories;
+using OnlineEdu.Entity.Entities;
 using System.Reflection;
 using System.Text.Json.Serialization;
 

@@ -9,8 +9,10 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+    [Authorize(Roles = "Admin, Teacher")]
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class BlogsController(IMapper _mapper, IBlogService _blogService) : ControllerBase
     {
         [AllowAnonymous]
@@ -63,6 +65,7 @@ namespace OnlineEdu.API.Controllers
             return Ok("Blog Alanı Güncellendi");
         }
 
+        [AllowAnonymous]
         [HttpGet("GetBlogByWriterId/{id}")]
         public IActionResult GetBlogByWriterId(int id)
         {
