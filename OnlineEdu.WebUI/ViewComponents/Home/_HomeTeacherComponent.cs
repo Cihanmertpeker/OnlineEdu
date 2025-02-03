@@ -4,12 +4,13 @@ using OnlineEdu.WebUI.Services.UserServices;
 
 namespace OnlineEdu.WebUI.ViewComponents.Home
 {
-    public class _HomeTeacherComponent : ViewComponent
+    public class _HomeTeacherComponent(IUserService _userService) : ViewComponent
     {
        
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View();
+            var values = await _userService.Get4Teachers();
+            return View(values);
         }
     }
 }

@@ -19,6 +19,6 @@ namespace OnlineEdu.WebUI.DTOs.UserDtos
         public List<ResultCourseRegisterDto> CourseRegisters { get; set; }
 
         public List<ResultBlogDto> Blogs { get; set; }
-    
+
     }
 }
