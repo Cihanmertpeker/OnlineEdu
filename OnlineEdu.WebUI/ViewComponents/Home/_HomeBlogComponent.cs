@@ -1,0 +1,27 @@
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using OnlineEdu.WebUI.DTOs;
+using OnlineEdu.WebUI.DTOs.BlogDtos;
+using OnlineEdu.WebUI.Helpers;
+
+namespace OnlineEdu.WebUI.ViewComponents.Home
+{
+    public class _HomeBlogComponent : ViewComponent
+    {
+        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+
+        public _HomeBlogComponent(HttpClient client)
+        {
+            _client = client;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var values = await _client.GetFromJsonAsync<List<ResultBlogDto>>("blogs/GetLast4Blogs");
+            return View(values);
+        }
+    }
+}

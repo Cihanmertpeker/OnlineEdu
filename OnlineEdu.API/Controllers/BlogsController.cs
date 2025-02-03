@@ -9,10 +9,8 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
-    [Authorize(Roles = "Admin, Teacher")]
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class BlogsController(IMapper _mapper, IBlogService _blogService) : ControllerBase
     {
         [AllowAnonymous]
@@ -23,6 +21,7 @@ namespace OnlineEdu.API.Controllers
             var blogs = _mapper.Map<List<ResultBlogDto>>(values);
             return Ok(blogs);
         }
+
         [AllowAnonymous]
         [HttpGet("GetLast4Blogs")]
         public IActionResult GetLast4Blogs()
@@ -36,11 +35,11 @@ namespace OnlineEdu.API.Controllers
 
         [HttpGet("{id}")]
 
-        //public IActionResult GetById(int id)
-        //{
-        //    var value = _blogService.TGetBlogWithCategory(id);
-        //    return Ok(value);
-        //}
+        public IActionResult GetById(int id)
+        {
+            var value = _blogService.TGetById(id);
+            return Ok(value);
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
