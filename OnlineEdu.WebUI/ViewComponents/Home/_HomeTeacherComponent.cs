@@ -9,7 +9,7 @@ namespace OnlineEdu.WebUI.ViewComponents.Home
        
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var values = await _userService.Get4Teachers();
+            var values = await _userService.GetAllTeachers();
             return View(values);
         }
     }

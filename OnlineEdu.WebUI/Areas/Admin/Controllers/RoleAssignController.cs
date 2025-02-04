@@ -12,6 +12,7 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class RoleAssignController(IUserService _userService,UserManager<AppUser> _userManager,RoleManager<AppRole> _roleManager) : Controller
     {
+        private readonly HttpClient _client;
         public async Task<IActionResult> Index()
         {
             var values = await _userService.GetAllUsersAsync();
@@ -21,41 +22,21 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> AssignRole(int id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
-            TempData["userId"] = user.Id;
-            var roles = await _roleManager.Roles.ToListAsync();
-            var userRoles = await _userManager.GetRolesAsync(user);
-            List<AssignRoleDto> assignRoleList = new List<AssignRoleDto>();
-            foreach (var role in roles)
-            {
-                var assignRole = new AssignRoleDto
-                {
-                    RoleId = role.Id,
-                    RoleName = role.Name,
-                    RoleExist = userRoles.Contains(role.Name)
-                };
-                assignRoleList.Add(assignRole);
-            }
-            return View(assignRoleList);
+            var values = await _userService.GetUserForRoleAssign(id);
+            return View(values);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AssignRole(List<AssignRoleDto> assignRolelist)
+        public async Task<IActionResult> AssignRole(List<AssignRoleDto> assignRoleList)
         {
-            int userId = (int)TempData["userId"];
-            var user = await _userService.GetUserByIdAsync(userId);
-            foreach (var item in assignRolelist)
+            var result = await _client.PostAsJsonAsync("roleAssigns", assignRoleList);
+            if (result.IsSuccessStatusCode)
             {
-                if (item.RoleExist)
-                {
-                    await _userManager.AddToRoleAsync(user, item.RoleName);
-                }
-                else
-                {
-                    await _userManager.RemoveFromRoleAsync(user, item.RoleName);
-                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View(assignRoleList);
+
+
         }
     }
 }

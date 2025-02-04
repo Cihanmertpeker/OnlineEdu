@@ -10,7 +10,7 @@ namespace OnlineEdu.WebUI.Services.UserServices
         Task<IdentityResult> CreateUserAsync(UserRegisterDto userRegisterDto);
 
         Task<string> LoginAsync(UserLoginDto userLoginDto);
-        Task<bool> LogoutAsync();
+        Task LogoutAsync();
 
         Task<bool> CreateRoleAsync(UserRoleDto userRoleDto);
 
@@ -18,12 +18,10 @@ namespace OnlineEdu.WebUI.Services.UserServices
         Task<List<UserViewModel>> GetAllUsersAsync();
 
 
-        // Task<List<AssignRoleDto>> GetUserForRoleAssign(int id);
+        Task<List<AssignRoleDto>> GetUserForRoleAssign(int id);
 
         Task<int> GetTeacherCount();
 
-        Task<List<ResultUserDto>> Get4Teachers();
-
-        Task<AppUser> GetUserByIdAsync(int id);
+        Task<List<ResultUserDto>> GetAllTeachers();
     }
 }
