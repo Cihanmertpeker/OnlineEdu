@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineEdu.Business.Abstract;
@@ -67,6 +68,14 @@ namespace OnlineEdu.API.Controllers
         {
             var values = _courseCategoryService.TGetFilteredList(x => x.IsShown == true);
             return Ok(values);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetCourseCategoryCount")]
+        public IActionResult GetCourseCategoryCount()
+        {
+            var courseCount = _courseCategoryService.TCount();
+            return Ok(courseCount);
         }
     }
 }

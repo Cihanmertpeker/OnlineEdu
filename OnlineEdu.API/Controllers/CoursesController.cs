@@ -13,6 +13,7 @@ namespace OnlineEdu.API.Controllers
     [ApiController]
     public class CoursesController(ICourseService _courseService, IMapper _mapper) : ControllerBase
     {
+
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Get()
@@ -22,10 +23,8 @@ namespace OnlineEdu.API.Controllers
             return Ok(courses);
         }
 
-
         [AllowAnonymous]
         [HttpGet("{id}")]
-
         public IActionResult GetById(int id)
         {
             var value = _courseService.TGetById(id);
@@ -68,6 +67,7 @@ namespace OnlineEdu.API.Controllers
             _courseService.TDontShowOnHome(id);
             return Ok("Ana Sayfada Gösterilmiyor");
         }
+
         [AllowAnonymous]
         [HttpGet("GetActiveCourses")]
         public IActionResult GetActiveCourses()
@@ -83,6 +83,7 @@ namespace OnlineEdu.API.Controllers
             var mappedValues = _mapper.Map<List<ResultCourseDto>>(values);
             return Ok(mappedValues);
         }
+
         [AllowAnonymous]
         [HttpGet("GetCourseCount")]
         public IActionResult GetCourseCount()
@@ -90,6 +91,7 @@ namespace OnlineEdu.API.Controllers
             var courseCount = _courseService.TCount();
             return Ok(courseCount);
         }
+
         [AllowAnonymous]
         [HttpGet("GetCoursesByCategoryId/{id}")]
         public IActionResult GetCoursesByCategoryId(int id)
@@ -97,5 +99,6 @@ namespace OnlineEdu.API.Controllers
             var values = _courseService.TGetAllCoursesWithCategories(x => x.CourseCategoryId == id);
             return Ok(values);
         }
+        
     }
 }

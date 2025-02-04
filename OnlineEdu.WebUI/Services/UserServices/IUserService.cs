@@ -18,9 +18,9 @@ namespace OnlineEdu.WebUI.Services.UserServices
         Task<List<UserViewModel>> GetAllUsersAsync();
 
 
-       // Task<List<AssignRoleDto>> GetUserForRoleAssign(int id);
+        // Task<List<AssignRoleDto>> GetUserForRoleAssign(int id);
 
-       // Task<int> GetTeacherCount();
+        Task<int> GetTeacherCount();
 
         Task<List<ResultUserDto>> Get4Teachers();
 

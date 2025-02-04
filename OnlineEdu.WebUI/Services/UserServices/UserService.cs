@@ -45,6 +45,7 @@ namespace OnlineEdu.WebUI.Services.UserServices
         public async Task<List<ResultUserDto>> Get4Teachers()
         {
          var users = await _userManager.Users.Include(x=>x.TeacherSocials).ToListAsync();
+
             var teachers = users.Where(user=>_userManager.IsInRoleAsync(user,"Teacher").Result).OrderByDescending(x=>x.Id).Take(4).ToList();
 
             return _mapper.Map<List<ResultUserDto>>(teachers); 
@@ -94,6 +95,11 @@ namespace OnlineEdu.WebUI.Services.UserServices
         Task<bool> IUserService.LogoutAsync()
         {
             throw new NotImplementedException();
+        }
+        public async Task<int> GetTeacherCount()
+        {
+            var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
+            return teachers.Count();
         }
     }
 }
