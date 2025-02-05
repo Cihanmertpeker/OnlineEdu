@@ -17,10 +17,10 @@ namespace OnlineEdu.Business.Concrete
             _blogRepository = blogRepository;
         }
 
-        //public Blog TGetBlogWithCategory(int id)
-        //{
-        //    return _blogRepository.GetBlogWithCategory(id);
-        //}
+        public Blog TGetBlogWithCategory(int id)
+        {
+            return _blogRepository.GetBlogWithCategory(id);
+        }
 
         public List<Blog> TGetBlogsWithCategories()
         {

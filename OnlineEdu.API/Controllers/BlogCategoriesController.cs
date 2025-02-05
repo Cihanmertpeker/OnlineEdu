@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineEdu.Business.Abstract;
@@ -10,14 +11,16 @@ namespace OnlineEdu.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogCategoriesController(IGenericService<BlogCategory> _blogCategoryService,IMapper _mapper) : ControllerBase
+    public class BlogCategoriesController(IBlogCategoryService _blogCategoryService, IMapper _mapper) : ControllerBase
     {
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Get()
         {
-            var values = _blogCategoryService.TGetList();
+            var values = _blogCategoryService.TGetCategoriesWithBlogs();
             return Ok(values);
         }
+
         [HttpGet("{id}")]
 
         public IActionResult GetById(int id)
@@ -30,7 +33,7 @@ namespace OnlineEdu.API.Controllers
         public IActionResult Delete(int id)
         {
             _blogCategoryService.TDelete(id);
-            return Ok("Hakkımızda Alanı Silindi");
+            return Ok("Blog Kategori Alanı Silindi");
         }
 
         [HttpPost]
@@ -38,7 +41,7 @@ namespace OnlineEdu.API.Controllers
         {
             var newValue = _mapper.Map<BlogCategory>(createBlogCategoryDto);
             _blogCategoryService.TCreate(newValue);
-            return Ok("Yeni Hakkımızda Alanı Oluşturuldu");
+            return Ok("Yeni Blog Kategori Alanı Oluşturuldu");
         }
 
         [HttpPut]
@@ -46,8 +49,7 @@ namespace OnlineEdu.API.Controllers
         {
             var value = _mapper.Map<BlogCategory>(updateBlogCategoryDto);
             _blogCategoryService.TUpdate(value);
-            return Ok("Hakkımda Alanı Güncellendi");
-
+            return Ok("Blog Kategori Alanı Güncellendi");
         }
     }
 }
