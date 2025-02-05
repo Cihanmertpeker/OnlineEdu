@@ -18,6 +18,6 @@ namespace OnlineEdu.WebUI.DTOs.BlogDtos
 
         public int WriterId { get; set; }
 
-        public AppUser Writer { get; set; }
+        public ResultUserDto Writer { get; set; }
     }
 }

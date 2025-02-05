@@ -19,5 +19,6 @@ namespace OnlineEdu.Entity.Entities
         public virtual AppUser AppUser { get; set; }
 
         public virtual List<CourseRegister> CourseRegisters { get; set; }
+        public virtual List<CourseVideo> CourseVideos { get; set; }
     }
 }
