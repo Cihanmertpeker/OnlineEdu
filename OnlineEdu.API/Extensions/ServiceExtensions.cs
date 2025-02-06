@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors.Infrastructure;
 using OnlineEdu.Business.Abstract;
 using OnlineEdu.Business.Concrete;
+using OnlineEdu.Business.Configurations;
 using OnlineEdu.DataAccess.Abstract;
 using OnlineEdu.DataAccess.Concrete;
 using OnlineEdu.DataAccess.Repositories;
@@ -27,6 +28,9 @@ namespace OnlineEdu.API.Extensions
 
             services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
             services.AddScoped<IBlogCategoryService, BlogCategoryManager>();
+
+            services.Configure<JwtTokenOptions>(configuration.GetSection("TokenOptions"));
+
         }
     }
 }
