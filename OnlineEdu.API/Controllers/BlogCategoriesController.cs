@@ -9,6 +9,7 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+    [Authorize(Roles = "Admin, Teacher")]
     [Route("api/[controller]")]
     [ApiController]
     public class BlogCategoriesController(IBlogCategoryService _blogCategoryService, IMapper _mapper) : ControllerBase
@@ -22,7 +23,6 @@ namespace OnlineEdu.API.Controllers
         }
 
         [HttpGet("{id}")]
-
         public IActionResult GetById(int id)
         {
             var value = _blogCategoryService.TGetById(id);

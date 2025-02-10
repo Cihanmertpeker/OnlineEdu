@@ -9,12 +9,16 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class TestimonialController : Controller
     {
+        private readonly HttpClient _client;
 
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
-
+        public TestimonialController(IHttpClientFactory clientFactory)
+        {
+            _client = clientFactory.CreateClient("EduClient");
+        }
 
         public async Task<IActionResult> Index()
         {
+
             var values = await _client.GetFromJsonAsync<List<ResultTestimonialDto>>("Testimonials");
             return View(values);
         }
@@ -22,31 +26,34 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteTestimonial(int id)
         {
             await _client.DeleteAsync($"Testimonials/{id}");
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
+
+
         public IActionResult CreateTestimonial()
         {
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> CreateTestimonial(CreateTestimonialDto createTestimonialDto)
         {
             await _client.PostAsJsonAsync("Testimonials", createTestimonialDto);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> UpdateTestimonial(int id)
         {
-            var value = await _client.GetFromJsonAsync<UpdateTestimonialDto>($"Testimonials/{id}");
-            return View(value);
+            var values = await _client.GetFromJsonAsync<UpdateTestimonialDto>($"Testimonials/{id}");
+            return View(values);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
         {
-            await _client.PutAsJsonAsync($"Testimonials", updateTestimonialDto);
-            return RedirectToAction("Index");
+            await _client.PutAsJsonAsync("Testimonials", updateTestimonialDto);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

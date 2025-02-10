@@ -9,11 +9,11 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+    [Authorize(Roles = "Admin, Teacher, Student")]
     [Route("api/[controller]")]
     [ApiController]
     public class CoursesController(ICourseService _courseService, IMapper _mapper) : ControllerBase
     {
-
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Get()
@@ -23,8 +23,10 @@ namespace OnlineEdu.API.Controllers
             return Ok(courses);
         }
 
+
         [AllowAnonymous]
         [HttpGet("{id}")]
+
         public IActionResult GetById(int id)
         {
             var value = _courseService.TGetById(id);
@@ -99,6 +101,5 @@ namespace OnlineEdu.API.Controllers
             var values = _courseService.TGetAllCoursesWithCategories(x => x.CourseCategoryId == id);
             return Ok(values);
         }
-        
     }
 }

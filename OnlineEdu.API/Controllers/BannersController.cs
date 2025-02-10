@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineEdu.Business.Abstract;
@@ -7,10 +8,12 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class BannersController(IGenericService<Banner> _bannerService,IMapper _mapper) : ControllerBase
+    public class BannersController(IGenericService<Banner> _bannerService, IMapper _mapper) : ControllerBase
     {
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Get()
         {
@@ -19,7 +22,6 @@ namespace OnlineEdu.API.Controllers
         }
 
         [HttpGet("{id}")]
-
         public IActionResult GetById(int id)
         {
             var value = _bannerService.TGetById(id);
@@ -40,6 +42,7 @@ namespace OnlineEdu.API.Controllers
             _bannerService.TCreate(newValue);
             return Ok("Yeni Banner Alanı Oluşturuldu");
         }
+
 
         [HttpPut]
         public IActionResult Update(UpdateBannerDto updateBannerDto)

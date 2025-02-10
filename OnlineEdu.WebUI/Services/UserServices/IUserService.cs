@@ -23,5 +23,6 @@ namespace OnlineEdu.WebUI.Services.UserServices
         Task<int> GetTeacherCount();
 
         Task<List<ResultUserDto>> GetAllTeachers();
+
     }
 }

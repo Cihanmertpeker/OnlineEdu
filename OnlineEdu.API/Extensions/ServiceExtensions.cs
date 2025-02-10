@@ -28,9 +28,11 @@ namespace OnlineEdu.API.Extensions
 
             services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
             services.AddScoped<IBlogCategoryService, BlogCategoryManager>();
+            services.AddScoped<IUserService, UserService>();
 
             services.Configure<JwtTokenOptions>(configuration.GetSection("TokenOptions"));
 
+            services.AddScoped<IJwtService, JwtService>();
         }
     }
 }

@@ -9,6 +9,7 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+    [Authorize(Roles = "Admin, Teacher")]
     [Route("api/[controller]")]
     [ApiController]
     public class BlogsController(IMapper _mapper, IBlogService _blogService) : ControllerBase
@@ -32,12 +33,10 @@ namespace OnlineEdu.API.Controllers
         }
 
         [AllowAnonymous]
-
         [HttpGet("{id}")]
-
         public IActionResult GetById(int id)
         {
-            var value = _blogService.TGetById(id);
+            var value = _blogService.TGetBlogWithCategory(id);
             return Ok(value);
         }
 
@@ -64,7 +63,6 @@ namespace OnlineEdu.API.Controllers
             return Ok("Blog Alanı Güncellendi");
         }
 
-        [AllowAnonymous]
         [HttpGet("GetBlogByWriterId/{id}")]
         public IActionResult GetBlogByWriterId(int id)
         {

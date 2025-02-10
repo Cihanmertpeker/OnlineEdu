@@ -9,9 +9,12 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class CourseCategoryController : Controller
     {
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
 
-        
+        public CourseCategoryController(IHttpClientFactory clientFactory)
+        {
+            _client = clientFactory.CreateClient("EduClient");
+        }
         public async Task<IActionResult> Index()
         {
             var values = await _client.GetFromJsonAsync<List<ResultCourseCategoryDto>>("CourseCategories");
@@ -56,7 +59,10 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> ShowOnHome(int id)
         {
             await _client.GetAsync("courseCategories/ShowOnHome/" + id);
+
             return RedirectToAction("Index");
+
+
         }
 
         public async Task<IActionResult> DontShowOnHome(int id)

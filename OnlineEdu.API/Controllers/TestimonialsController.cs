@@ -8,10 +8,12 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class TestimonialsController(IGenericService<Testimonial> _testimonialService, IMapper _mapper) : ControllerBase
     {
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Get()
         {
@@ -20,7 +22,6 @@ namespace OnlineEdu.API.Controllers
         }
 
         [HttpGet("{id}")]
-
         public IActionResult GetById(int id)
         {
             var value = _testimonialService.TGetById(id);

@@ -8,10 +8,13 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class SocialMediasController(IGenericService<SocialMedia> _socialMediaService, IMapper _mapper) : ControllerBase
     {
+
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Get()
         {
@@ -20,7 +23,6 @@ namespace OnlineEdu.API.Controllers
         }
 
         [HttpGet("{id}")]
-
         public IActionResult GetById(int id)
         {
             var value = _socialMediaService.TGetById(id);

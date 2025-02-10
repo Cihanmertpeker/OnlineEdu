@@ -9,8 +9,12 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class MessageController : Controller
     {
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
 
+        public MessageController(IHttpClientFactory clientFactory)
+        {
+            _client = clientFactory.CreateClient("EduClient");
+        }
         public async Task<IActionResult> Index()
         {
             var values = await _client.GetFromJsonAsync<List<ResultMessageDto>>("Messages");
@@ -30,5 +34,7 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
             var value = await _client.GetFromJsonAsync<ResultMessageDto>("Messages/" + id);
             return View(value);
         }
+
+
     }
 }

@@ -9,18 +9,21 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+    [Authorize(Roles = "Admin, Teacher")]
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseCategoriesController(ICourseCategoryService _courseCategoryService,IMapper _mapper) : ControllerBase
+    public class CourseCategoriesController(ICourseCategoryService _courseCategoryService, IMapper _mapper) : ControllerBase
     {
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Get()
         {
             var values = _courseCategoryService.TGetList();
-            return Ok(values);
+            var courseCategories = _mapper.Map<List<ResultCourseCategoryDto>>(values);
+            return Ok(courseCategories);
         }
-        [HttpGet("{id}")]
 
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var value = _courseCategoryService.TGetById(id);
@@ -63,6 +66,8 @@ namespace OnlineEdu.API.Controllers
             _courseCategoryService.TDontShowOnHome(id);
             return Ok("Ana Sayfada Gösterilmiyor");
         }
+
+        [AllowAnonymous]
         [HttpGet("GetActiveCategories")]
         public IActionResult GetActiveCategories()
         {
@@ -77,5 +82,8 @@ namespace OnlineEdu.API.Controllers
             var courseCount = _courseCategoryService.TCount();
             return Ok(courseCount);
         }
+
+
     }
+
 }

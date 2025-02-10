@@ -11,9 +11,17 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    public class RoleAssignController(IUserService _userService,UserManager<AppUser> _userManager,RoleManager<AppRole> _roleManager) : Controller
+    public class RoleAssignController : Controller
     {
         private readonly HttpClient _client;
+        private readonly IUserService _userService;
+
+        public RoleAssignController(IHttpClientFactory clientFactory, IUserService userService)
+        {
+            _client = clientFactory.CreateClient("EduClient");
+            _userService = userService;
+        }
+
         public async Task<IActionResult> Index()
         {
             var values = await _userService.GetAllUsersAsync();
@@ -28,6 +36,7 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
+
         public async Task<IActionResult> AssignRole(List<AssignRoleDto> assignRoleList)
         {
             var result = await _client.PostAsJsonAsync("roleAssigns", assignRoleList);
@@ -39,5 +48,8 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 
 
         }
+
+
+
     }
 }
